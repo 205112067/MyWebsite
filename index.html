@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 </head>
 <body ng-app="BlankApp" ng-cloak>
-   <h2>Welcome to My Website.</h2>
   <div layout="row" layout-align="center center">
   <md-card flex=50>
  <form id="javascript_form" layout="column">
@@ -16,11 +15,14 @@
     </md-card>
 </div>
 <script>
+
     //update this with your js_form selector
     var form_id_js = "javascript_form";
+
     var data_js = {
         "access_token": "s4zv3dh7i04vjed3217xokm8"
     };
+
     function js_onSuccess() {
       alert("Submitted Successfully")
       document.getElementById("javascript_form").reset();
@@ -29,11 +31,14 @@
         // remove this to avoid redirect
        // window.location = window.location.pathname + "?message=Email+Successfully+Sent%21&isError=0";
     }
+
     function js_onError(error) {
         // remove this to avoid redirect
         window.location = window.location.pathname + "?message=Email+could+not+be+sent.&isError=1";
     }
+
     var sendButton = document.getElementById("js_send");
+
     function js_send() {
         sendButton.value='Sending…';
         sendButton.disabled=true;
@@ -46,30 +51,41 @@
                 js_onError(request.response);
             }
         };
+
         var subject = document.querySelector("#" + form_id_js + " [name='subject']").value;
         var message = document.querySelector("#" + form_id_js + " [name='text']").value;
         data_js['subject'] = subject;
         data_js['text'] = message;
         var params = toParams(data_js);
+
         request.open("POST", "https://postmail.invotes.com/send", true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
         request.send(params);
+
         return false;
     }
+
     sendButton.onclick = js_send;
+
     function toParams(data_js) {
         var form_data = [];
         for ( var key in data_js ) {
             form_data.push(encodeURIComponent(key) + "=" + encodeURIComponent(data_js[key]));
         }
+
         return form_data.join("&");
     }
+
     var js_form = document.getElementById(form_id_js);
     js_form.addEventListener("submit", function (e) {
         e.preventDefault();
     });
 </script>
-  
+
+   
+   
+
   <!-- Angular Material requires Angular.js Libraries -->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
@@ -79,13 +95,20 @@
   <!-- Angular Material Library -->
   <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
   
-  <!-- Your application bootstrap  -->
-  <script type="text/javascript">    
+
+<script type="text/javascript">    
     /**
      * You must include the dependency on 'ngMaterial' 
      */
     angular.module('BlankApp', ['ngMaterial']);
   </script>
+
+
   
 </body>
 </html>
+
+<!--
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+-->
